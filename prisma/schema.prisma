@@ -1,0 +1,146 @@
+// Prisma Schema for EVConsults CMS
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────
+
+enum Role {
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypt hash
+  name      String?
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────
+// CMS PAGES & SECTIONS
+// ─────────────────────────────────────────
+
+model Page {
+  id        String    @id @default(cuid())
+  slug      String    @unique // "home" | "about" | "services" | "licensing" | "industries"
+  title     String
+  seoTitle  String?
+  seoDesc   String?
+  sections  Section[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Section {
+  id        String   @id @default(cuid())
+  page      Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId    String
+  key       String   // e.g. "hero_slides" | "problems" | "services_list" | "who_we_serve"
+  order     Int      @default(0)
+  content   Json     // flexible JSON for any section data structure
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([pageId, key])
+  @@index([pageId])
+}
+
+// ─────────────────────────────────────────
+// BLOG
+// ─────────────────────────────────────────
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model BlogPost {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String     @db.Text
+  body        String     @db.Text // Markdown content
+  category    String
+  image       String?    // Cloudinary URL
+  imageAlt    String?
+  readTime    String?    @default("5 min read")
+  accent      String?    @default("#00AEEF")
+  status      PostStatus @default(DRAFT)
+  seoTitle    String?
+  seoDesc     String?
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status])
+  @@index([slug])
+}
+
+// ─────────────────────────────────────────
+// CONTACT REQUESTS
+// ─────────────────────────────────────────
+
+enum ContactStatus {
+  NEW
+  READ
+  RESPONDED
+}
+
+model ContactRequest {
+  id        String        @id @default(cuid())
+  name      String
+  company   String?
+  phone     String
+  email     String
+  city      String
+  siteType  String
+  load      String?
+  message   String        @db.Text
+  status    ContactStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ─────────────────────────────────────────
+// GLOBAL SETTINGS
+// ─────────────────────────────────────────
+
+model GlobalSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────
+// MEDIA
+// ─────────────────────────────────────────
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String   @unique // Cloudinary public_id
+  alt       String?
+  mimeType  String?
+  width     Int?
+  height    Int?
+  bytes     Int?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
