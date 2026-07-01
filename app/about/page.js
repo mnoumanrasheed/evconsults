@@ -214,7 +214,7 @@ export default async function About() {
                 letterSpacing: '-1px',
                 lineHeight: 1.1
               }}>
-                Ready to <span style={{ color: 'var(--color-secondary)' }}>Power the Future?</span>
+                {cta.title || 'Ready to Power the Future?'}
               </h2>
               <p style={{ 
                 color: 'rgba(255,255,255,0.7)', 

@@ -496,6 +496,77 @@ async function main() {
   });
 
 
+  // --- CONTACT PAGE ---
+  await prisma.page.upsert({
+    where: { slug: 'contact' },
+    update: {},
+    create: {
+      slug: 'contact',
+      title: 'Contact',
+      seoTitle: 'Contact Us | EVConsults',
+      seoDesc: 'Contact EVConsults for expert advice on EV charging stations, feasibility reports, utility load approvals, and NEPRA registration in Pakistan.',
+    },
+  });
+  const contactPage = await prisma.page.findUnique({ where: { slug: 'contact' } });
+
+  await prisma.section.upsert({
+    where: { pageId_key: { pageId: contactPage.id, key: 'header' } },
+    update: {},
+    create: {
+      pageId: contactPage.id,
+      key: 'header',
+      order: 1,
+      content: {
+        title: 'Contact EVConsults',
+        subtitle: 'Planning to set up an EV charging station in Pakistan? Share your details and our team will contact you for a premium consultation.',
+      },
+    },
+  });
+
+  // --- BLOG PAGE ---
+  await prisma.page.upsert({
+    where: { slug: 'blog' },
+    update: {},
+    create: {
+      slug: 'blog',
+      title: 'Blog',
+      seoTitle: 'EV Insights & Industry Intelligence | EVConsults',
+      seoDesc: "Expert analysis, regulatory updates, and practical guides for Pakistan's fast-growing electric vehicle charging sector.",
+    },
+  });
+  const blogPage = await prisma.page.findUnique({ where: { slug: 'blog' } });
+
+  await prisma.section.upsert({
+    where: { pageId_key: { pageId: blogPage.id, key: 'header' } },
+    update: {},
+    create: {
+      pageId: blogPage.id,
+      key: 'header',
+      order: 1,
+      content: {
+        tag: 'Knowledge Hub',
+        title: 'EV Insights & Industry Intelligence',
+        subtitle: "Expert analysis, regulatory updates, and practical guides for Pakistan's fast-growing electric vehicle charging sector.",
+      },
+    },
+  });
+
+  await prisma.section.upsert({
+    where: { pageId_key: { pageId: blogPage.id, key: 'cta' } },
+    update: {},
+    create: {
+      pageId: blogPage.id,
+      key: 'cta',
+      order: 2,
+      content: {
+        title: 'Have a Project in Mind?',
+        subtitle: 'Our consultants are ready to guide you through feasibility, licensing, and implementation.',
+        buttonText: 'Book a Free Consultation',
+      },
+    },
+  });
+
+
   // 3. Seed Global Settings
   console.log('Seeding global settings...');
   

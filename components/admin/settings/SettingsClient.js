@@ -7,7 +7,7 @@ import { Save, Check, AlertCircle, Loader, Phone, Mail, Globe, Heart, Shield } f
 export default function SettingsClient({ initialSettings }) {
   const [activeTab, setActiveTab] = useState('contact');
   const [settings, setSettings] = useState(initialSettings || {});
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -53,7 +53,7 @@ export default function SettingsClient({ initialSettings }) {
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: '2rem' }}>
-      
+
       {/* Sidebar Tabs */}
       <div style={{
         backgroundColor: '#ffffff',
@@ -96,7 +96,7 @@ export default function SettingsClient({ initialSettings }) {
 
       {/* Settings Form Workspace */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-        
+
         {success && (
           <div style={{
             display: 'flex',
@@ -182,7 +182,7 @@ export default function SettingsClient({ initialSettings }) {
 
           {/* Form Content */}
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            
+
             {activeTab === 'contact' && (
               <>
                 <div style={formGroupStyle}>
@@ -197,7 +197,16 @@ export default function SettingsClient({ initialSettings }) {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div style={formGroupStyle}>
-                    <label style={labelStyle}>Phone 1 (Aatif Alvi)</label>
+                    <label style={labelStyle}>Contact 1 Name</label>
+                    <input
+                      type="text"
+                      value={settings.contact?.person1 || ''}
+                      onChange={(e) => handleFieldChange('contact', 'person1', e.target.value)}
+                      style={inputStyle}
+                    />
+                  </div>
+                  <div style={formGroupStyle}>
+                    <label style={labelStyle}>Contact 1 Phone ({settings.contact?.person1 || 'Name'})</label>
                     <input
                       type="text"
                       value={settings.contact?.phone1 || ''}
@@ -205,8 +214,20 @@ export default function SettingsClient({ initialSettings }) {
                       style={inputStyle}
                     />
                   </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div style={formGroupStyle}>
-                    <label style={labelStyle}>Phone 2 (Naveed Ahmed)</label>
+                    <label style={labelStyle}>Contact 2 Name</label>
+                    <input
+                      type="text"
+                      value={settings.contact?.person2 || ''}
+                      onChange={(e) => handleFieldChange('contact', 'person2', e.target.value)}
+                      style={inputStyle}
+                    />
+                  </div>
+                  <div style={formGroupStyle}>
+                    <label style={labelStyle}>Contact 2 Phone ({settings.contact?.person2 || 'Name'})</label>
                     <input
                       type="text"
                       value={settings.contact?.phone2 || ''}
@@ -356,7 +377,7 @@ export default function SettingsClient({ initialSettings }) {
           </div>
         </div>
       </div>
-      
+
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }

@@ -25,6 +25,8 @@ export default async function PagesList() {
     services: '/services',
     licensing: '/licensing',
     industries: '/industries',
+    blog: '/blog',
+    contact: '/contact',
   };
 
   return (

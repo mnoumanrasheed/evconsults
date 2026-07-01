@@ -8,7 +8,7 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hello! I am **EVBot**, your EVConsults AI specialist. ⚡\n\nI can help you understand our **consultancy services**, **NEPRA licensing requirements**, **financial feasibility options**, and **target industries** in Pakistan. How can I assist you today?"
+      content: "Hello! I am **EVBot**, your EVConsults AI specialist. ⚡\n\nI can help with **NEPRA Chapter 16 compliance**, **IESCO connection documents**, **earthing & protection**, **tariff/margin rules**, **transformer sizing**, and our consultancy services in Pakistan. How can I assist you today?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -76,10 +76,10 @@ export default function AIChatbot() {
   };
 
   const suggestionChips = [
-    { label: "What services do you offer?", query: "What services do you offer?" },
-    { label: "Can you help with NEPRA licensing?", query: "Can you help with NEPRA licensing?" },
-    { label: "Which industries do you serve?", query: "Which industries do you serve?" },
-    { label: "How can I contact you?", query: "How can I contact you?" }
+    { label: "IESCO documents checklist", query: "What documents are required for IESCO EVCS connection?" },
+    { label: "NEPRA Chapter 16 overview", query: "Explain NEPRA Chapter 16 for public EV charging stations" },
+    { label: "Transformer sizing for 120kW", query: "What transformer size is needed for a 120 kW EV charger?" },
+    { label: "Earthing requirements", query: "What are the earthing requirements for an EV charging station?" },
   ];
 
   return (

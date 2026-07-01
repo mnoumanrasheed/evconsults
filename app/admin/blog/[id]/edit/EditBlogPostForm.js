@@ -244,11 +244,13 @@ export default function EditBlogPostForm({ post }) {
                   name="excerpt"
                   value={formData.excerpt}
                   onChange={handleChange}
-                  required
                   rows={3}
-                  placeholder="Provide a concise 1-2 sentence description for listing grids..."
+                  placeholder="Optional — leave blank to auto-generate from post content"
                   style={textareaStyle}
                 />
+                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                  Used on the blog listing cards only. Full content stays on the article page.
+                </span>
               </div>
 
               {/* Body */}

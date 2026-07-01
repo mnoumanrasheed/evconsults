@@ -143,7 +143,7 @@ function BlogCard({ post, index }) {
         }} className="card-img" />
       </div>
 
-      <div style={{ padding:'1.75rem', display:'flex', flexDirection:'column', flexGrow:1, gap:'0' }}>
+      <div style={{ padding:'1.75rem', display:'flex', flexDirection:'column', flex:1 }}>
         {/* Category badge */}
         <span style={{
           display:'inline-block',
@@ -155,7 +155,7 @@ function BlogCard({ post, index }) {
           fontWeight:'700',
           letterSpacing:'1px',
           textTransform:'uppercase',
-          marginBottom:'1rem',
+          marginBottom:'0.85rem',
           alignSelf:'flex-start',
         }}>
           {post.category}
@@ -167,8 +167,7 @@ function BlogCard({ post, index }) {
           fontWeight:'700',
           lineHeight:1.45,
           color:'var(--color-primary)',
-          marginBottom:'0.75rem',
-          flexGrow:1,
+          margin: '0 0 0.75rem 0',
         }}>
           <Link
             href={`/blog/${post.slug}`}
@@ -180,17 +179,23 @@ function BlogCard({ post, index }) {
           </Link>
         </h3>
 
-        {/* Excerpt */}
-        <p style={{
-          fontSize:'0.9rem',
-          color:'var(--color-text-light)',
-          lineHeight:1.65,
-          marginBottom:'1.5rem',
-        }}>
-          {post.excerpt}
-        </p>
+        {/* Excerpt — short summary only, never full body */}
+        {post.excerpt ? (
+          <p style={{
+            fontSize:'0.9rem',
+            color:'var(--color-text-light)',
+            lineHeight:1.65,
+            margin: '0 0 1.25rem 0',
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}>
+            {post.excerpt}
+          </p>
+        ) : null}
 
-        {/* Footer meta */}
+        {/* Footer meta — pinned to card bottom */}
         <div style={{
           display:'flex',
           alignItems:'center',

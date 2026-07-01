@@ -62,6 +62,11 @@ export default async function Industries() {
   };
 
   const indSec = sections.industries_list || {};
+  const industriesSectionTitle = indSec.title || 'Industries We Work With';
+  const industriesSectionDesc =
+    indSec.description ||
+    indSec.subtitle ||
+    'From petrol pump owners to highway developers — we guide every investor through the full EV setup process.';
   const industriesList = ensureArray(indSec.items || indSec, [
     {
       iconName: "Fuel",
@@ -158,8 +163,8 @@ export default async function Industries() {
           <div style={{ animation: 'fadeInUp 0.6s ease' }}>
             <div style={{ textAlign:'center', marginBottom:'3rem' }}>
               <span style={{ display:'inline-block', background:'rgba(0,174,239,0.1)', color:'#00AEEF', border:'1px solid rgba(0,174,239,0.3)', borderRadius:'2rem', padding:'0.3rem 1rem', fontSize:'0.72rem', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase', marginBottom:'0.75rem' }}>Who We Help</span>
-              <h2 style={{ marginBottom:'0.5rem' }}>Industries We Work With</h2>
-              <p style={{ color:'var(--color-text-light)', maxWidth:'560px', margin:'0 auto' }}>From petrol pump owners to highway developers — we guide every investor through the full EV setup process.</p>
+              <h2 style={{ marginBottom:'0.5rem' }}>{industriesSectionTitle}</h2>
+              <p style={{ color:'var(--color-text-light)', maxWidth:'560px', margin:'0 auto' }}>{industriesSectionDesc}</p>
             </div>
 
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(220px,1fr))', gap:'1rem' }}>

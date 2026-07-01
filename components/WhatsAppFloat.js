@@ -3,14 +3,19 @@ import { useState } from 'react';
 import { MessageSquare, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function WhatsAppFloat() {
+export default function WhatsAppFloat({ settings = {} }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const p1Name = settings.person1 || "Aatif Alvi";
+  const p2Name = settings.person2 || "Naveed Ahmed";
+  const w1Status = settings.whatsapp1 || "923225131504";
+  const w2Status = settings.whatsapp2 || "923328271005";
 
   return (
     <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 50, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1rem' }}>
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -23,33 +28,33 @@ export default function WhatsAppFloat() {
               </button>
             </div>
             <p style={{ margin: 0, fontSize: '0.9rem', color: '#6b7280' }}>Hello! How can we help you with your EV charging project?</p>
-            
-            <a 
-              href="https://wa.me/923225131504" target="_blank" rel="noreferrer" 
+
+            <a
+              href={`https://wa.me/${w1Status}`} target="_blank" rel="noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: '#25D366', color: 'white', padding: '0.75rem 1rem', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: '500' }}
             >
               <MessageSquare size={20} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
-                <span style={{ fontSize: '0.9rem', lineHeight: 1 }}>Aatif Alvi</span>
+                <span style={{ fontSize: '0.9rem', lineHeight: 1 }}>{p1Name}</span>
                 <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>Available for chat</span>
               </div>
             </a>
-            
-            <a 
-              href="https://wa.me/923328271005" target="_blank" rel="noreferrer" 
+
+            <a
+              href={`https://wa.me/${w2Status}`} target="_blank" rel="noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: '#128C7E', color: 'white', padding: '0.75rem 1rem', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: '500' }}
             >
               <MessageSquare size={20} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
-                <span style={{ fontSize: '0.9rem', lineHeight: 1 }}>Naveed Ahmed</span>
+                <span style={{ fontSize: '0.9rem', lineHeight: 1 }}>{p2Name}</span>
                 <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>Available for chat</span>
               </div>
             </a>
           </motion.div>
         )}
       </AnimatePresence>
-      
-      <motion.button 
+
+      <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
