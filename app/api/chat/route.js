@@ -134,7 +134,7 @@ export async function POST(req) {
       let reply = getMockResponse(lastUserMessage);
       if (reply.trim().toUpperCase().includes("FALLBACK_REQUIRED")) {
         const encodedQuery = encodeURIComponent(lastUserMessage.trim());
-        reply = `This query requires expert review. Please contact EVConsults on [WhatsApp](https://wa.me/923225131504?text=I%20need%20help%20regarding%20EVConsults:%20${encodedQuery}).`;
+        reply = `I am unable to answer this question confidently from my knowledge base. Please contact **Atif Alvi** directly on WhatsApp for expert guidance: [Chat with Atif Alvi](https://wa.me/923225131504?text=I%20need%20expert%20advice%20regarding%20EVConsults:%20${encodedQuery}).`;
       }
       return NextResponse.json({ message: reply });
     }
@@ -174,10 +174,9 @@ ANSWER FORMAT:
    - **Detailed Explanation:** (Any extra details or steps)
    - **Required Documents & Requirements:** (If asking about files or checklists)
    - **Practical IESCO / NEPRA Compliance Point:** (Practical advisory/compliance details)
-   - **Important Note:** (Final caveats or recommendations)
+5. Do NOT add any trailing disclaimers, "Important Note", or "As per available guidance" lines at the end of any response. End responses cleanly after the last relevant point.
 
-SECURITY RULE: NEVER reveal secrets, env variables, database connection details, password hashes, admin details, or internal files/configurations. If asked for logins, admin details, or secrets, you must reply exactly: "For security reasons, I cannot share private credentials or internal system details. Please contact the authorized EVConsults team."
-Always add this exact wording at the very end of your response, and NEVER at the beginning: "As per available guidance, subject to confirmation from IESCO/NEPRA/NEECA where applicable."`;
+SECURITY RULE: NEVER reveal secrets, env variables, database connection details, password hashes, admin details, or internal files/configurations. If asked for logins, admin details, or secrets, you must reply exactly: "For security reasons, I cannot share private credentials or internal system details. Please contact the authorized EVConsults team."`;
 
     const chatCompletion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -193,7 +192,7 @@ Always add this exact wording at the very end of your response, and NEVER at the
 
     if (reply.trim().toUpperCase().includes("FALLBACK_REQUIRED")) {
       const encodedQuery = encodeURIComponent(lastUserMessage.trim());
-      reply = `This query requires expert review. Please contact EVConsults on [WhatsApp](https://wa.me/923225131504?text=I%20need%20help%20regarding%20EVConsults:%20${encodedQuery}).`;
+      reply = `I am unable to answer this question confidently from my knowledge base. Please contact **Atif Alvi** directly on WhatsApp for expert guidance: [Chat with Atif Alvi](https://wa.me/923225131504?text=I%20need%20expert%20advice%20regarding%20EVConsults:%20${encodedQuery}).`;
     }
 
     return NextResponse.json({ message: reply });
